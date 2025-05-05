@@ -1,12 +1,12 @@
 # cloudbuild.yaml
 steps:
-# Build the Docker image
+# Build the Docker image using the Dockerfile in the same directory
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
   - '-t'
   # Tag the image with the specific commit SHA for traceability
-  # Substitutions will provide values for _AR_REGION, _AR_REPO_NAME, _SERVICE_NAME
+  # Substitutions _AR_REGION, _AR_REPO_NAME, _SERVICE_NAME are defined in the trigger
   - '${_AR_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO_NAME}/${_SERVICE_NAME}:${SHORT_SHA}'
   - '.' # Build context is the current directory (repo root)
 
@@ -31,6 +31,9 @@ steps:
   - '--allow-unauthenticated' # Keep this if you want the app publicly accessible
   # Remove '--allow-unauthenticated' and add '--no-allow-unauthenticated' if you need authentication
   # --project is automatically set by Cloud Build
+
 timeout: '1600s' # Increase timeout if build/deploy takes longer than 10 mins
+
+# This option must be at the top level, aligned with 'steps' and 'timeout'
 options:
   logging: CLOUD_LOGGING_ONLY
