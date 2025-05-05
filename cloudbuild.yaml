@@ -32,3 +32,5 @@ steps:
   # Remove '--allow-unauthenticated' and add '--no-allow-unauthenticated' if you need authentication
   # --project is automatically set by Cloud Build
 timeout: '1600s' # Increase timeout if build/deploy takes longer than 10 mins
+options:
+  logging: CLOUD_LOGGING_ONLY
