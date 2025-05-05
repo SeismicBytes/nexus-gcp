@@ -16,7 +16,7 @@ COPY . .
 
 # Expose the port that Streamlit runs on (default is 8501)
 # Cloud Run uses the PORT environment variable, so we need to tell Streamlit to listen on it.
-EXPOSE 8501
+EXPOSE 8080
 
 # Run the Streamlit application
 # Cloud Run will provide the PORT environment variable
